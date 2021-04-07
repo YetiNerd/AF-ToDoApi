@@ -15,13 +15,26 @@ namespace Application.Functions.Todo
         [FunctionName("UpdateTodoItemCommandFunction")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "put", Route = "Todo/{id:guid}")] HttpRequest req, ILogger log, Guid id)
         {
-            var command = await req.ConvertRequestToCommand<UpdateTodoItemCommand>();
-            command.AddPathParamToCommand(nameof(id), id);
+            Task<IActionResult> result = null;
 
-            // Access Database
-            // todo
+            try
+            {
+                var command = (await req.ConvertRequestToCommand<UpdateTodoItemCommand>())
+                    .AddPathParamToCommand(nameof(id), id);
 
-            return new OkObjectResult(command);
+                // Access Database
+                // todo
+
+                result = req.CreateHttpResponse()
+                    .AddHeaderEntry("MyHeader", "MyKey")
+                    .Send(command);
+            }
+            catch (Exception ex)
+            {
+                result = req.CreateHttpResponse()
+                    .SendFromException(ex);
+            }
+            return await result;
         }
     }
 }

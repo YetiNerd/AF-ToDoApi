@@ -15,12 +15,25 @@ namespace Application.Functions.Todo
         [FunctionName("GetTodoItemsQueryFunction")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "Todo")] HttpRequest req, ILogger log)
         {
-            var query = await req.ConvertRequestToCommand<GetTodoItemsQuery>();
+            Task<IActionResult> result = null;
 
-            // Access Database and Delete
-            // todo
+            try
+            {
+                var query = await req.ConvertRequestToCommand<GetTodoItemsQuery>();
 
-            return new OkObjectResult(query);
+                // Access Database and Delete
+                // todo
+
+                result = req.CreateHttpResponse()
+                    .AddHeaderEntry("MyHeader", "MyKey")
+                    .Send(query);
+            }
+            catch (Exception ex)
+            {
+                result = req.CreateHttpResponse()
+                    .SendFromException(ex);
+            }
+            return await result;
         }
     }
 }

@@ -15,13 +15,26 @@ namespace Application.Functions.Todo
         [FunctionName("FindTodoItemByIdQueryFunction")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "Todo/{id:guid}")] HttpRequest req, ILogger log, Guid id)
         {
-            var query = await req.ConvertRequestToCommand<FindTodoItemByIdQuery>();
-            query.AddPathParamToCommand(nameof(id), id);
+            Task<IActionResult> result = null;
 
-            // Access Database and Delete
-            // todo
+            try
+            {
+                var query = (await req.ConvertRequestToCommand<FindTodoItemByIdQuery>())
+                    .AddPathParamToCommand(nameof(id), id);
 
-            return new OkObjectResult(query);
+                // Access Database and Delete
+                // todo
+
+                result = req.CreateHttpResponse()
+                    .AddHeaderEntry("MyHeader", "MyKey")
+                    .Send(query);
+            }
+            catch (Exception ex)
+            {
+                result = req.CreateHttpResponse()
+                    .SendFromException(ex);
+            }
+            return await result;
         }
     }
 }

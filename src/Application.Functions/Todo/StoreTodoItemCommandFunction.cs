@@ -15,12 +15,25 @@ namespace Application.Functions.Todo
         [FunctionName("StoreTodoItemCommandFunction")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "Todo")] HttpRequest req, ILogger log)
         {
-            var command = await req.ConvertRequestToCommand<StoreTodoItemCommand>();
+            Task<IActionResult> result = null;
 
-            // Access Database and Delete
-            // todo
+            try
+            {
+                var command = await req.ConvertRequestToCommand<StoreTodoItemCommand>();
 
-            return new OkObjectResult(command);
+                // Access Database and Delete
+                // todo
+
+                result = req.CreateHttpResponse()
+                    .AddHeaderEntry("MyHeader", "MyKey")
+                    .Send(command);
+            }
+            catch (Exception ex)
+            {
+                result = req.CreateHttpResponse()
+                    .SendFromException(ex);
+            }
+            return await result;
         }
     }
 }

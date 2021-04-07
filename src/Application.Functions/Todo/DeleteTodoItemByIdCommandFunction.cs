@@ -15,13 +15,26 @@ namespace Application.Functions.Todo
         [FunctionName("DeleteTodoItemByIdCommandFunction")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Todo/{id:guid}")] HttpRequest req, ILogger log, Guid id)
         {
-            var command = await req.ConvertRequestToCommand<DeleteTodoItemByIdCommand>();
-            command.AddPathParamToCommand(nameof(id), id);
+            Task<IActionResult> result = null;
 
-            // Access Database and Delete
-            // todo
+            try
+            {
+                var command = (await req.ConvertRequestToCommand<DeleteTodoItemByIdCommand>())
+                    .AddPathParamToCommand(nameof(id), id);
 
-            return new OkObjectResult(command);
+                // Access Database and Delete
+                // todo
+
+                result = req.CreateHttpResponse()
+                    .AddHeaderEntry("MyHeader", "MyKey")
+                    .Send(command);
+            }
+            catch (Exception ex)
+            {
+                result = req.CreateHttpResponse()
+                    .SendFromException(ex);
+            }
+            return await result;
         }
     }
 }
