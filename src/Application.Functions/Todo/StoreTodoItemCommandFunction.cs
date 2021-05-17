@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using Application.Todo;
+using AzureFunctions.Extensions.Swashbuckle.Attribute;
 using Functions.Extension.Handler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +15,12 @@ namespace Application.Functions.Todo
     public static class StoreTodoItemCommandFunction
     {
         [FunctionName("StoreTodoItemCommandFunction")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "Todo")] HttpRequest req, ILogger log)
+        [ApiExplorerSettings(GroupName = "todo")]
+        [ProducesResponseType(typeof(StoreTodoItemCommand), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "Todo")] HttpRequest req, 
+            [RequestBodyType(typeof(StoreTodoItemCommand), "StoreTodoItemCommand Request-Body")]
+            ILogger log)
         {
             Task<IActionResult> result = null;
 

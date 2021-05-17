@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Functions", "src\Application.Functions\Application.Functions.csproj", "{ACEB6B96-622A-42B1-A465-BA9525869526}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Functions", "src\Application.Functions\Application.Functions.csproj", "{ACEB6B96-622A-42B1-A465-BA9525869526}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{622502B6-DD59-4948-A56B-7F6218C4D7B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{451D654A-0465-403B-8DAA-84962A330FFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{451D654A-0465-403B-8DAA-84962A330FFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{59450578-5F70-42DF-8FCC-596C73AE575B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{59450578-5F70-42DF-8FCC-596C73AE575B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{E70E25C7-CCF5-48F4-85E8-D573C3FD0838}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Application\Application.csproj", "{E70E25C7-CCF5-48F4-85E8-D573C3FD0838}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "extension", "extension", "{830DFBB3-10C4-46CA-855E-4C128CC717B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functions.Extension", "extension\Functions.Extension\Functions.Extension.csproj", "{A69A5D02-F9C0-4C83-AD40-3A9D2C6D1FA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Functions.Extension", "extension\Functions.Extension\Functions.Extension.csproj", "{A69A5D02-F9C0-4C83-AD40-3A9D2C6D1FA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using Application.Todo;
 using Functions.Extension.Handler;
@@ -13,6 +14,9 @@ namespace Application.Functions.Todo
     public static class FindTodoItemByIdQueryFunction
     {
         [FunctionName("FindTodoItemByIdQueryFunction")]
+        [ApiExplorerSettings(GroupName = "todo")]
+        [ProducesResponseType(typeof(FindTodoItemByIdQuery), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "Todo/{id:guid}")] HttpRequest req, ILogger log, Guid id)
         {
             Task<IActionResult> result = null;

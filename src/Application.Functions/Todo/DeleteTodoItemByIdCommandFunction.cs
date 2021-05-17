@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using Application.Todo;
+using AzureFunctions.Extensions.Swashbuckle.Attribute;
 using Functions.Extension.Handler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +15,10 @@ namespace Application.Functions.Todo
     public static class DeleteTodoItemByIdCommandFunction
     {
         [FunctionName("DeleteTodoItemByIdCommandFunction")]
+        [ApiExplorerSettings(GroupName = "todo")]
+        [ProducesResponseType(typeof(DeleteTodoItemByIdCommand), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "Todo/{id:guid}")] HttpRequest req, ILogger log, Guid id)
         {
             Task<IActionResult> result = null;
